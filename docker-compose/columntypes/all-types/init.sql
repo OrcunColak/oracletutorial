@@ -1,40 +1,52 @@
-create TABLE all_char_types_table (
-    char_column CHAR(5),
-    varchar2_column VARCHAR2(20),
+CREATE USER sa IDENTIFIED BY my1passw;
 
-    varchar_column VARCHAR(15), -- Legacy
+GRANT connect, resource, dba to sa;
 
-    nchar_column NCHAR(3),
-    nvarchar2_column NVARCHAR2(10)
+ALTER SESSION SET current_schema = sa;
+
+CREATE TABLE all_char_types_table (
+    char_column char(5),
+    varchar2_column varchar2(20),
+    varchar_column varchar(15),
+    nchar_column nchar(3),
+    nvarchar2_column nvarchar2(10)
 );
 
-create TABLE all_clob_types_table (
-    clob_column CLOB,
-    nclob_column NCLOB
+CREATE TABLE all_clob_types_table (
+    clob_column clob,
+    nclob_column nclob
 );
 
-create TABLE all_blob_types_table (
-    raw_column RAW(100),
-    blob_column BLOB,
-    bfile_column BFILE
+-- binary blobs
+CREATE TABLE all_blob_types_table (
+    raw_column raw(100),
+    blob_column blob,
+    bfile_column bfile
 );
 
-create TABLE bit_types_table (
-    bit_column NUMBER(1)
+CREATE TABLE bit_types_table (
+    bit_column number(1)
 );
 
-create TABLE integer_types_table (
-    tinyint_column NUMBER(3),
-    smallint_column SMALLINT, -- NUMBER(5),
-    integer_column INTEGER, -- NUMBER(10)
-    bigint_column NUMBER(19)
+CREATE TABLE integer_types_table (
+    tinyint_column number(3),
+    smallint_column smallint,
+    integer_column integer,
+    bigint_column number(19)
 );
 
-create TABLE all_numeric_types_table (
-   binaryfloat_column BINARY_FLOAT, -- 32-bit, single-precision floating point number
-   binarydouble_column BINARY_DOUBLE, -- 64-bit, double-precision floating point number
-   double_column FLOAT, -- Translated to NUMBER
-   decimak_column DECIMAL -- Translated to NUMBER
+CREATE TABLE all_numeric_types_table (
+   binaryfloat_column binary_float,
+   binarydouble_column binary_double,
+   double_column float,
+   real_column real,
+   decimal_column decimal
 );
 
-
+CREATE TABLE datetime_types_table (
+    date_column DATE,
+    timestamp_column TIMESTAMP(6),
+    timestamp_with_time_zone_column TIMESTAMP WITH TIME ZONE,
+    timestamp_with_local_time_zone_column TIMESTAMP WITH LOCAL TIME ZONE,
+    interval_column INTERVAL DAY TO SECOND
+);

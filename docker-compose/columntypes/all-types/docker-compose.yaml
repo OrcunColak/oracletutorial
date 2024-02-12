@@ -3,7 +3,7 @@
 #Database : FREE
 #URL : jdbc:oracle:thin:@//localhost:1521/FREE
 #Authentication : User / Password
-#User : system
+#User : sa
 #Password : My1passw
 version: '3'
 services:

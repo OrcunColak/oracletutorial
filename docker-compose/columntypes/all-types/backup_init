@@ -1,0 +1,75 @@
+-- Create a new user
+CREATE USER sa IDENTIFIED BY my1passw;
+
+-- grant necessary privileges to the user
+GRANT connect, resource, dba to sa;
+
+-- connect as the new user
+ALTER SESSION SET current_schema = sa;
+
+
+CREATE TABLE all_char_types_table (
+    char_column char(5),
+    varchar2_column varchar2(20),
+
+    varchar_column varchar(15), -- legacy
+
+    nchar_column nchar(3),
+    nvarchar2_column nvarchar2(10)
+)
+
+-- character blobs
+CREATE TABLE all_clob_types_table (
+    clob_column clob,
+    nclob_column nclob
+);
+
+-- binary blobs
+CREATE TABLE all_blob_types_table (
+    raw_column raw(100),
+    blob_column blob,
+    bfile_column bfile
+);
+
+CREATE TABLE bit_types_table (
+    bit_column number(1)
+);
+
+CREATE TABLE integer_types_table (
+    tinyint_column number(3),
+    smallint_column smallint, -- number(5),
+    integer_column integer, -- number(10)
+    bigint_column number(19)
+);
+
+-- see https://dba.stackexchange.com/questions/259027/postgresql-vs-oracle-double
+-- oracle has only three numeric data types:
+-- number: binary coded decimals. slow, but exact.
+-- binary_float: ieee single precision floating point number. fast and quite imprecise.
+-- binary_double: ieee double precision floating point number. fast and less imprecise.
+-- you can use integer, double precision, real and float in oracle, like the sql standard demands, but you will always get a number (
+CREATE TABLE all_numeric_types_table (
+   binaryfloat_column binary_float, -- 32-bit, single-precision floating point number
+   binarydouble_column binary_double, -- 64-bit, double-precision floating point number
+   double_column float, -- translated to number
+   real_column real, -- translated to number
+   decimal_column decimal -- translated to number
+);
+
+CREATE TABLE datetime_types_table (
+    -- It stores year, month, day, hour, minute, second
+     --  TIMESTAMP WITHOUT TIME ZONE but no fractional seconds. Similar to TIMESTAMP(0)
+    date_column DATE,
+
+    -- It stores year, month, day, hour, minute, second
+    -- TIMESTAMP WITHOUT TIME ZONE and fractional seconds
+    timestamp_column TIMESTAMP(6),
+
+    timestamp_with_time_zone_column TIMESTAMP WITH TIME ZONE, -- includes a time zone offset or time zone region name in its value
+
+    -- normalized to the database time zone, and the time zone offset is not stored as part of the column data
+    -- When users retrieve the data, Oracle returns it in the users' local session time zone.
+    timestamp_with_local_time_zone_column TIMESTAMP WITH LOCAL TIME ZONE,
+
+    interval_column INTERVAL DAY TO SECOND
+);
