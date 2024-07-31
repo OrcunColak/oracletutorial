@@ -32,6 +32,7 @@ CREATE TABLE integer_types_table (
     tinyint_column number(3),
     smallint_column smallint,
     integer_column integer,
+	int_column int,
     bigint_column number(19)
 );
 
